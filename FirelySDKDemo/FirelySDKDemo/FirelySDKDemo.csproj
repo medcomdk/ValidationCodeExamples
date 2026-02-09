@@ -20,6 +20,9 @@
       <None Update="2AnotherCareCommunicationMsg.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="3AThirdCareCommunicationMsg.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

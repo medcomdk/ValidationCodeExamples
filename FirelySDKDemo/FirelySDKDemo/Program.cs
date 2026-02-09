@@ -2,6 +2,7 @@
 using Firely.Fhir.Packages;
 using Firely.Fhir.Validation;
 using Hl7.Fhir.Model;
+using Hl7.Fhir.Rest;
 using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Specification;
 using Hl7.Fhir.Specification.Source;
@@ -36,9 +37,14 @@ stopwatch.Restart();
 
 // Step two, create your cache resolver, enabling you to cache the IG profiles, valuesets etc.
 var resourceResolver = new CachedResolver(packageResolver);
-// Step three, create your terminology service. Currently none of the medom IG's requires your code to call an external terminology server
-// therefore we create a local terminology service. See more info here https://docs.fire.ly/projects/Firely-NET-SDK/en/latest/validation/terminology-service.html#localterminologyservice
-var terminologyService = new LocalTerminologyService(resourceResolver);
+// Step three, create your terminology service. Perhaps for your setup you only need the LocalTerminologyService, but it's always good to have a backup, as some of MedCom's
+// IG's requires an external terminology service. If your environment doesn't allow an external terminology service, please contact MedCom for discussion.
+// See more info here https://docs.fire.ly/projects/Firely-NET-SDK/en/latest/validation/terminology-service.html#localterminologyservice
+var localTerminologyService = new LocalTerminologyService(resourceResolver);
+// The MimeType terminology service is quite frequently used, but is external, so including it here avoids having to go through the external terminology service
+var mimeTypeTerminologyService = new MimeTypeTerminologyService();
+var externalTerminologyService = new ExternalTerminologyService(new FhirClient("https://tx.hl7europe.eu/r4"));
+var terminologyService = new MultiTerminologyService(localTerminologyService, mimeTypeTerminologyService, externalTerminologyService);
 Console.WriteLine($"It took {stopwatch.Elapsed.TotalSeconds} seconds to create Local Terminology Service");
 stopwatch.Restart();
 
@@ -64,17 +70,29 @@ var anotherCareCommunicationMsg = File.ReadAllText(Path.Combine(AppContext.BaseD
 var anotherMessageBundle = FhirXmlDeserializer.DEFAULT.Deserialize<Bundle>(anotherCareCommunicationMsg);
 
 stopwatch.Restart();
-var anotherValidationOutCome = validator.Validate(messageBundle);
+var anotherValidationOutCome = validator.Validate(anotherMessageBundle);
 Console.WriteLine($"BONUS - It took {stopwatch.Elapsed.TotalSeconds} seconds to validate a second time");
 
 // Bonus step, print out the errors and warnings
-Console.WriteLine($"Amount of Errors: {validationOutCome.Errors}");
-Console.WriteLine($"Amount of Warnings: {validationOutCome.Warnings}");
+Console.WriteLine($"Amount of Errors: {anotherValidationOutCome.Errors}");
+Console.WriteLine($"Amount of Warnings: {anotherValidationOutCome.Warnings}");
 
-foreach (var issue in validationOutCome.Issue)
+foreach (var issue in anotherValidationOutCome.Issue)
     Console.WriteLine($"IssueType: {issue.Code} - Issue details {issue.Details?.Text}");
 
 
 // NOTE: Please take care to read the documentation. For example the IExternalReferenceResolver might be very important
 // for your specific use case. As of writing this (6. february 2026) MedCom does not have any IG's that require it
+
+// Bonus step, json and terminology service. The 3AthirdCareCommunicationMsg.json file needs a different parser and also the mimetype terminology service
+Console.WriteLine("\nA third JSON carecommunication message with a required terminology service to expand the image/png code");
+var aThirdCareCommunicationMsg = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "3AThirdCareCommunicationMsg.json"));
+var aThirdMessageBundle = FhirJsonDeserializer.DEFAULT.Deserialize<Bundle>(aThirdCareCommunicationMsg);
+var aThirdValidationOutCome = validator.Validate(aThirdMessageBundle);
+
+Console.WriteLine($"Amount of Errors: {aThirdValidationOutCome.Errors}");
+Console.WriteLine($"Amount of Warnings: {aThirdValidationOutCome.Warnings}");
+
+foreach (var issue in aThirdValidationOutCome.Issue)
+    Console.WriteLine($"IssueType: {issue.Code} - Issue details {issue.Details?.Text}");
 
