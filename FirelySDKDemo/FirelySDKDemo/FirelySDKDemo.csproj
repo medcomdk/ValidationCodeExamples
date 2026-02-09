@@ -14,13 +14,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="1SomeCareCommunicationMsg.xml">
+      <None Update="Resources\CareCommunication\1SomeCareCommunicationMsg.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="2AnotherCareCommunicationMsg.xml">
+      <None Update="Resources\CareCommunication\2AnotherCareCommunicationMsg.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="3AThirdCareCommunicationMsg.json">
+      <None Update="Resources\CareCommunication\3AThirdCareCommunicationMsg.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\Acknowledgement\Acknowledgement-positive.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

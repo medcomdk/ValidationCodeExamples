@@ -1,0 +1,192 @@
+﻿{
+  "resourceType": "Bundle",
+  "id": "019c425a-2bbe-74fa-96b1-2b75a4bc9115",
+  "meta": {
+    "profile": [
+      "http://medcomfhir.dk/ig/acknowledgement/StructureDefinition/medcom-messaging-acknowledgement"
+    ]
+  },
+  "type": "message",
+  "timestamp": "2025-01-01T00:00:00+01:00",
+  "entry": [
+    {
+      "fullUrl": "https://novax.dk/fhir/MessageHeader/48cf76d2-b190-4d3d-b078-bd3d48331303",
+      "resource": {
+        "resourceType": "MessageHeader",
+        "id": "48cf76d2-b190-4d3d-b078-bd3d48331303",
+        "meta": {
+          "profile": [
+            "http://medcomfhir.dk/ig/acknowledgement/StructureDefinition/medcom-messaging-acknowledgementHeader"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'><p><b>Message Header 48cf76d2-b190-4d3d-b078-bd3d48331303</b></p></div>"
+        },
+        "eventCoding": {
+          "system": "http://medcomfhir.dk/ig/terminology/CodeSystem/medcom-messaging-eventCodes",
+          "code": "acknowledgement-message"
+        },
+        "destination": [
+          {
+            "extension": [
+              {
+                "url": "http://medcomfhir.dk/ig/messaging/StructureDefinition/medcom-messaging-destinationUseExtension",
+                "valueCoding": {
+                  "system": "http://medcomfhir.dk/ig/terminology/CodeSystem/medcom-messaging-destinationUse",
+                  "code": "primary"
+                }
+              }
+            ],
+            "endpoint": "https://sor2.sum.dsdn.dk/#id=265161000016000",
+            "receiver": {
+              "reference": "Organization/a029d6fb-bcf1-4257-932d-0c4a949946a0"
+            }
+          }
+        ],
+        "sender": {
+          "reference": "Organization/f30694c9-6e04-4ab3-9e30-aa88f614f3ab"
+        },
+        "source": {
+          "endpoint": "https://sor2.sum.dsdn.dk/#id=953741000016009"
+        },
+        "response": {
+          "identifier": "362ff5a7-7796-44d6-81bc-c5566c5c1d07",
+          "code": "ok"
+        },
+        "definition": "http://medcomfhir.dk/ig/acknowledgement/medcom-acknowledgement-message-definition|2.0.0"
+      }
+    },
+    {
+      "fullUrl": "https://novax.dk/fhir/Provenance/8799ee9b-c479-4165-ac60-bf30af394bf5",
+      "resource": {
+        "resourceType": "Provenance",
+        "id": "8799ee9b-c479-4165-ac60-bf30af394bf5",
+        "meta": {
+          "profile": [
+            "http://medcomfhir.dk/ig/messaging/StructureDefinition/medcom-messaging-provenance"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'><p><b>MedCom Acknowledgement Messaging Provenance 8799ee9b-c479-4165-ac60-bf30af394bf5</b></p></div>"
+        },
+        "target": [
+          {
+            "reference": "MessageHeader/48cf76d2-b190-4d3d-b078-bd3d48331303"
+          }
+        ],
+        "occurredDateTime": "2025-01-01T00:00:00+01:00",
+        "recorded": "2025-01-01T00:00:00+01:00",
+        "activity": {
+          "coding": [
+            {
+              "system": "http://medcomfhir.dk/ig/terminology/CodeSystem/medcom-messaging-activityCodes",
+              "code": "acknowledgement"
+            }
+          ],
+          "text": "Acknowledgement message has been sent"
+        },
+        "agent": [
+          {
+            "who": {
+              "reference": "Organization/f30694c9-6e04-4ab3-9e30-aa88f614f3ab"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://novax.dk/fhir/Provenance/44cefc23-ed38-4d4a-a91c-2b8bba7d6c68",
+      "resource": {
+        "resourceType": "Provenance",
+        "id": "44cefc23-ed38-4d4a-a91c-2b8bba7d6c68",
+        "meta": {
+          "profile": [
+            "http://medcomfhir.dk/ig/messaging/StructureDefinition/medcom-messaging-provenance"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'><p><b>MedCom Acknowledgement Messaging Provenance 44cefc23-ed38-4d4a-a91c-2b8bba7d6c68</b></p></div>"
+        },
+        "target": [
+          {
+            "reference": "MessageHeader/362ff5a7-7796-44d6-81bc-c5566c5c1d07"
+          }
+        ],
+        "occurredDateTime": "2026-02-09T13:22:11.6430532+01:00",
+        "recorded": "2026-02-09T13:22:11.6430532+01:00",
+        "activity": {
+          "coding": [
+            {
+              "system": "http://medcomfhir.dk/ig/terminology/CodeSystem/medcom-messaging-activityCodes",
+              "code": "forward-message"
+            }
+          ]
+        },
+        "agent": [
+          {
+            "who": {
+              "reference": "Organization/a029d6fb-bcf1-4257-932d-0c4a949946a0"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://novax.dk/fhir/Organization/a029d6fb-bcf1-4257-932d-0c4a949946a0",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "a029d6fb-bcf1-4257-932d-0c4a949946a0",
+        "meta": {
+          "profile": [
+            "http://medcomfhir.dk/ig/messaging/StructureDefinition/medcom-messaging-organization"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'><p><b>MedCom Messaging Organization a029d6fb-bcf1-4257-932d-0c4a949946a0</b></p></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://www.gs1.org/gln",
+            "value": "5790000209354"
+          },
+          {
+            "system": "urn:oid:1.2.208.176.1.1",
+            "value": "265161000016000"
+          }
+        ],
+        "name": "Receiver Organization"
+      }
+    },
+    {
+      "fullUrl": "https://novax.dk/fhir/Organization/f30694c9-6e04-4ab3-9e30-aa88f614f3ab",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "f30694c9-6e04-4ab3-9e30-aa88f614f3ab",
+        "meta": {
+          "profile": [
+            "http://medcomfhir.dk/ig/messaging/StructureDefinition/medcom-messaging-organization"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'><p><b>MedCom Messaging Organization f30694c9-6e04-4ab3-9e30-aa88f614f3ab</b></p></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://www.gs1.org/gln",
+            "value": "5790001348120"
+          },
+          {
+            "system": "urn:oid:1.2.208.176.1.1",
+            "value": "953741000016009"
+          }
+        ],
+        "name": "Sender Organization"
+      }
+    }
+  ]
+}
