@@ -4,7 +4,7 @@ using Hl7.Fhir.Specification.Source;
 
 namespace FirelySDKDemo.Utilities;
 
-public static class CachedResolveUtilities
+public static class CachedResolverUtilities
 {
     // NOTE: Can easily be made non async
     public static async Task<CachedResolver> GetResourceResolverWithFixedFhirPaths(FhirPackageSource packageResolver)

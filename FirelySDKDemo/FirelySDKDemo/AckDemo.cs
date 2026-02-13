@@ -21,7 +21,7 @@ public class AckDemo
         var packageResolver = new FhirPackageSource(ModelInfo.ModelInspector, packageServer,
             ["medcom.fhir.dk.acknowledgement@2.0.3"]);
 
-        var resourceResolver = await CachedResolveUtilities.GetResourceResolverWithFixedFhirPaths(packageResolver);
+        var resourceResolver = await CachedResolverUtilities.GetResourceResolverWithFixedFhirPaths(packageResolver);
         
         var localTerminologyService = new LocalTerminologyService(resourceResolver);
         var mimeTypeTerminologyService = new MimeTypeTerminologyService();

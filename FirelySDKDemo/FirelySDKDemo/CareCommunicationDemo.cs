@@ -43,7 +43,7 @@ public class CareCommunicationDemo
         stopwatch.Restart();
 
         // Step two, create your cache resolver, enabling you to cache the IG profiles, valuesets etc.
-        var resourceResolver = await CachedResolveUtilities.GetResourceResolverWithFixedFhirPaths(packageResolver);
+        var resourceResolver = await CachedResolverUtilities.GetResourceResolverWithFixedFhirPaths(packageResolver);
         // Step three, create your terminology service. Perhaps for your setup you only need the LocalTerminologyService, but it's always good to have a backup, as some of MedCom's
         // IG's requires an external terminology service. If your environment doesn't allow an external terminology service, please contact MedCom for discussion.
         // See more info here https://docs.fire.ly/projects/Firely-NET-SDK/en/latest/validation/terminology-service.html#localterminologyservice
