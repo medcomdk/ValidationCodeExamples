@@ -7,7 +7,7 @@ namespace FirelySDKDemo.Utilities;
 public static class CachedResolveUtilities
 {
     // NOTE: Can easily be made non async
-    public static async Task<CachedResolver> GetResourceResolverWithFixedGlnInvariants(FhirPackageSource packageResolver)
+    public static async Task<CachedResolver> GetResourceResolverWithFixedFhirPaths(FhirPackageSource packageResolver)
     {
         var canonicalsToPatch = new[]
         {
