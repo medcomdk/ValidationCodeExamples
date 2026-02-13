@@ -1,4 +1,7 @@
-﻿namespace FirelySDKDemo;
+﻿using System.Text.Json;
+using FirelySDKDemo.Utilities;
+
+namespace FirelySDKDemo;
 
 using System.Diagnostics;
 using Firely.Fhir.Packages;
@@ -6,13 +9,11 @@ using Firely.Fhir.Validation;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using Hl7.Fhir.Serialization;
-using Hl7.Fhir.Specification;
-using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Specification.Terminology;
 
 public class CareCommunicationDemo
 {
-    public static void Run()
+    public static async System.Threading.Tasks.Task Run()
     {
         var stopwatch = new Stopwatch();
         stopwatch.Start();
@@ -36,14 +37,13 @@ public class CareCommunicationDemo
          */
         // ALSO: This requires you to download the Firely.Fhir.Packages nuget package
         var packageServer = "https://packages.simplifier.net";
-        var fhirRelease = FhirRelease.R4;
         var packageResolver = new FhirPackageSource(ModelInfo.ModelInspector, packageServer,
             ["medcom.fhir.dk.carecommunication@5.0.1"]);
         Console.WriteLine($"It took {stopwatch.Elapsed.TotalSeconds} seconds to create FHIR Package Source");
         stopwatch.Restart();
 
         // Step two, create your cache resolver, enabling you to cache the IG profiles, valuesets etc.
-        var resourceResolver = new CachedResolver(packageResolver);
+        var resourceResolver = await CachedResolveUtilities.GetResourceResolverWithFixedGlnInvariants(packageResolver);
         // Step three, create your terminology service. Perhaps for your setup you only need the LocalTerminologyService, but it's always good to have a backup, as some of MedCom's
         // IG's requires an external terminology service. If your environment doesn't allow an external terminology service, please contact MedCom for discussion.
         // See more info here https://docs.fire.ly/projects/Firely-NET-SDK/en/latest/validation/terminology-service.html#localterminologyservice
@@ -79,7 +79,10 @@ public class CareCommunicationDemo
         Console.WriteLine($"Amount of Warnings: {validationOutCome.Warnings}");
 
         foreach (var issue in validationOutCome.Issue)
-            Console.WriteLine($"IssueType: {issue.Code} - Issue details {issue.Details?.Text}");
+        {
+            Console.WriteLine(JsonSerializer.Serialize(issue));
+            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {issue.Details?.Coding.First().CodeElement?.Value}");
+        }
 
         // Bonus step, see cache in action, deserialize another message with the same validator.
         var anotherCareCommunicationMsg =
@@ -95,7 +98,7 @@ public class CareCommunicationDemo
         Console.WriteLine($"Amount of Warnings: {anotherValidationOutCome.Warnings}");
 
         foreach (var issue in anotherValidationOutCome.Issue)
-            Console.WriteLine($"IssueType: {issue.Code} - Issue details {issue.Details?.Text}");
+            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {issue.Details?.Coding.First().CodeElement?.Value}");
 
 
         // NOTE: Please take care to read the documentation. For example the IExternalReferenceResolver might be very important
@@ -113,6 +116,6 @@ public class CareCommunicationDemo
         Console.WriteLine($"Amount of Warnings: {aThirdValidationOutCome.Warnings}");
 
         foreach (var issue in aThirdValidationOutCome.Issue)
-            Console.WriteLine($"IssueType: {issue.Code} - Issue details {issue.Details?.Text}");
+            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {issue.Details?.Coding.First().CodeElement?.Value}");
     }
 }

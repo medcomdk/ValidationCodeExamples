@@ -1,4 +1,4 @@
 ﻿using FirelySDKDemo;
 
-AckDemo.Run();
-//CareCommunicationDemo.Run();
+await AckDemo.Run();
+await CareCommunicationDemo.Run();
