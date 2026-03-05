@@ -20,7 +20,12 @@ public static class CachedResolverUtilities
         foreach (var canonical in canonicalsToPatch)
         {
             var original = await packageResolver.ResolveByCanonicalUriAsync(canonical) as StructureDefinition
-                           ?? throw new InvalidOperationException($"Cannot resolve {canonical}");
+                           ?? null;
+            if (original is null)
+            {
+                Console.WriteLine($"WARNING: Trying to patch dk-core ecpr identifier FHIRPath could not be done as the canonical '{canonical}' was not to be found?");
+                continue;
+            }
 
             var patched = original.DeepCopy();
 
