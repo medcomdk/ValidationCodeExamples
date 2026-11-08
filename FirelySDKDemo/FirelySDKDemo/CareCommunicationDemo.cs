@@ -81,7 +81,8 @@ public class CareCommunicationDemo
         foreach (var issue in validationOutCome.Issue)
         {
             Console.WriteLine(JsonSerializer.Serialize(issue));
-            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {issue.Details?.Coding.First().CodeElement?.Value}");
+            var coding = issue.Details?.Coding?.FirstOrDefault();
+            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {coding?.CodeElement?.Value}");
         }
 
         // Bonus step, see cache in action, deserialize another message with the same validator.
@@ -98,7 +99,8 @@ public class CareCommunicationDemo
         Console.WriteLine($"Amount of Warnings: {anotherValidationOutCome.Warnings}");
 
         foreach (var issue in anotherValidationOutCome.Issue)
-            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {issue.Details?.Coding.First().CodeElement?.Value}");
+            var coding = issue.Details?.Coding?.FirstOrDefault();
+            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {coding?.CodeElement?.Value}");
 
 
         // NOTE: Please take care to read the documentation. For example the IExternalReferenceResolver might be very important
@@ -116,6 +118,7 @@ public class CareCommunicationDemo
         Console.WriteLine($"Amount of Warnings: {aThirdValidationOutCome.Warnings}");
 
         foreach (var issue in aThirdValidationOutCome.Issue)
-            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {issue.Details?.Coding.First().CodeElement?.Value}");
+            var coding = issue.Details?.Coding?.FirstOrDefault();
+            Console.WriteLine($"IssueCode: {issue} - Issue details {issue.Details?.Text} - Error Code : {coding?.CodeElement?.Value}");
     }
 }
